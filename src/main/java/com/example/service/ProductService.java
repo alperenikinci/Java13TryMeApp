@@ -2,6 +2,8 @@ package com.example.service;
 
 import com.example.dto.request.*;
 import com.example.entity.*;
+import com.example.mapper.BrandMapper;
+import com.example.mapper.ModelMapper;
 import com.example.mapper.PropertyMapper;
 import com.example.repository.BrandRepository;
 import com.example.repository.ProductRepository;
@@ -20,12 +22,11 @@ public class ProductService {
     private final ImageService imageService;
 
     public Product saveProduct(ProductSaveRequestDto dto){
-        BrandSaveRequestDto dto1 = BrandSaveRequestDto.builder()
-                .brandName(dto.getBrandName())
-                .build();
-        Brand brand = brandService.saveBrand(dto1);
-        ModelSaveRequestDto dto2 = ModelSaveRequestDto.builder().modelName(dto.getModelName()).brandId(brand.getId()).build();
-        Model model = modelService.saveModel(dto2);
+
+        Brand brand = brandService.saveBrand(BrandMapper.INSTANCE.fromProductDtoToBrandDto(dto));
+        ModelSaveRequestDto modelDto = ModelMapper.INSTANCE.fromProductDtoToModelDto(dto);
+        modelDto.setBrandId(brand.getId());
+        Model model = modelService.saveModel(modelDto);
         Property property = propertyService.saveProperty(PropertyMapper.INSTANCE.fromProductDtoToPropertyDto(dto));
         Image image = imageService.saveImage(ImageSaveRequestDto.builder().images(dto.getImages()).build());
         Product product = productRepository.save(Product

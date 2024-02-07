@@ -17,13 +17,14 @@ public class ProductSaveRequestDto {
     private String brandName;
     private String modelName;
     private String productName;
+    private Long quantity;
+    private Double price;
     private ECategory category;
     private ESubCategory subCategory;
     private EColor color;
     private ESize size;
     private EGender gender;
-    List<MultipartFile> images;
-    private Long quantity;
-    private Double price;
+    private List<MultipartFile> images;
+
 
 }

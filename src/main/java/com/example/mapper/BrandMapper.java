@@ -1,17 +1,16 @@
 package com.example.mapper;
 
+import com.example.dto.request.BrandSaveRequestDto;
 import com.example.dto.request.ProductSaveRequestDto;
 import com.example.dto.request.PropertySaveRequestDto;
-import com.example.entity.Property;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring",unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface PropertyMapper {
+public interface BrandMapper {
 
-    PropertyMapper INSTANCE = Mappers.getMapper(PropertyMapper.class);
+    BrandMapper INSTANCE = Mappers.getMapper(BrandMapper.class);
 
-    PropertySaveRequestDto fromProductDtoToPropertyDto(final ProductSaveRequestDto dto);
-    Property fromPropertySaveRequestDtoToProperty(final PropertySaveRequestDto dto);
+    BrandSaveRequestDto fromProductDtoToBrandDto(final ProductSaveRequestDto dto);
 }
